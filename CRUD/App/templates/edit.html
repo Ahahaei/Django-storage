@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %} Edit {% endblock title %}
+
+{% block navbar-content %}
+<i class=""> </i> &nbsp;&nbsp; Edit product
+{% endblock navbar-content %}
+
+{% block content %}
+
+<div class="container-fluid">
+                
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+
+                    <div class="container">
+
+                        <div class="card">
+                            <div class="card-body">                                
+
+                                
+                            	<form  enctype="multipart/form-data" {% block action %} action="/edit_product/{{product.id}}" {%endblock action %} method="POST">
+                            		{% csrf_token %}
+
+                                    {% block value-id %}{% endblock value-id %}
+                                    <label>Product</label>
+                            		<textarea  class="form-control" placeholder="Product description" aria-label="Withtextarea" name = "product" maxlength="40" required {% block value-product %}{% endblock value-product %}>{{product.product}}</textarea>
+                                    
+                                    <label>Purchase</label>
+                            		<textarea  class="form-control" placeholder="Purchase price" aria-label="Withtextarea" name = "purchase" maxlength="40" required {% block value-purchase %}{% endblock value-purchase %}>{{product.purchase}}</textarea>
+                            		
+                                    <label>Sale</label>
+                            		<textarea  class="form-control" placeholder="Sale value" aria-label="Withtextarea" name = "sale" maxlength="10" required {% block value-sale %}{% endblock value-sale %}>{{product.sale}}</textarea>
+                                    
+                                    <label>Quantity</label>
+                            		<textarea  class="form-control" placeholder="Quantity" aria-label="Withtextarea" name = "qty" maxlength="10" required {% block value-qty %}{% endblock value-qty %}>{{product.qty}}</textarea>
+                                    
+                                    <label>Gender</label>
+    								<select class="form-select" name="gender" required>
+                                        {% block options %}
+                                        <option value="" hidden></option>
+                                        {%endblock options %}
+                                        <option disabled></option>
+                                        <option>M</option>
+                                        <option>F</option>
+                                    </select>
+
+                                    <label>Note</label>
+                            		<textarea  class="form-control" placeholder="" aria-label="Withtextarea" name = "note" maxlength="1000" required {% block note %}{% endblock note %}>{{product.note}}</textarea>
+    								<br>
+                                
+									<button name="submit" type="submit" class="btn btn-primary btn-sm">
+                                    {% block btn-action %}<i class="fas fa-plus"></i> Save 
+                                    
+                                    {% endblock btn-action %}
+
+                                    </button>
+
+                            	</form>
+
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                
+</div>
+
+
+{% endblock content %}

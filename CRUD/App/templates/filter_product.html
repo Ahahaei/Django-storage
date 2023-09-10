@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block navbar-content %}
+<i class="">
+
+</i>&nbsp;&nbsp; Shoes List
+{% endblock navbar-content %}
+
+{% block content %}
+<style>
+    .gray-page {
+        color: black;
+    }
+</style>
+
+<div class="container">
+ <br><br>
+    <a href="{% url 'add_product' %}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-plus"></i> Add Product</a>
+    <a href="{% url 'go_filter' %}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-search"></i> Filter</a>
+
+    <table class ="table table-bordered table-sm mt-4" style="text-align: center; font-size:14px;">
+        <thead class="table-warning">
+            <tr>
+                <th style="width: 25%">Product</th>
+                <th style="width: 15%">Purchase</th>
+                <th style="width: 15%">Sale</th>
+                <th style="width: 8%">QTY</th>
+                <th style="width: 8%">Gender</th>
+                <th style="width: 19%">Registerd</th>
+                <th colspan="2" style="width: 10%">Action</th>
+            <tr>
+        </thead>
+        {%for product in queryset %}
+        <tr>
+            <td> {{product.product}}</td>
+            <td> {{product.purchase}}</td>
+            <td> {{product.sale}}</td>
+            <td> {{product.qty}}</td>
+            <td> {{product.gender}}</td>
+            <td> {{ product.created_at|date:'m/d/Y H:i' }}</td>
+            <td>
+                <a href="/product/{{product.id}}" class="btn btn-warning" title="Edit product">
+                    <i class="fas fa-pen"></i>
+                </a>
+            </td>
+            <td>
+                <a href="/delete_product/{{product.id}}" class="btn btn-secondary" title="Delete">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <nav aria-label="Page navigation example">
+    <ul class="pagination">
+    
+        {% for i in paginator.page_range %}
+            <li class="page-item"><a class="page-link gray-page" href="?page={{ i }}">{{ i }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+
+</div>
+
+{% endblock content %}
